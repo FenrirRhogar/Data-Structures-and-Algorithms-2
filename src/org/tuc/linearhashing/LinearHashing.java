@@ -1,6 +1,8 @@
 package org.tuc.linearhashing;
 
-public class LinearHashing {
+import org.tuc.interfaces.SearchInsert;
+
+public class LinearHashing implements SearchInsert {
 
 	private HashBucket[] hashBuckets;	// pointer to the hash buckets
 
@@ -147,6 +149,11 @@ public class LinearHashing {
 		   System.out.println("Bucket[" + i + "]");
 		   this.hashBuckets[i].printBucket(this.bucketSize);
 		}
+	}
+
+	@Override
+	public boolean searchKey(int key) {
+		return search(key);
 	}
 
 

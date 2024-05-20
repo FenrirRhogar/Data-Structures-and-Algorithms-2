@@ -103,7 +103,7 @@ public class RandomNumbersToFiles {
 	 * @param fileName
 	 * @return The read numbers
 	 */
-	private int[] readInts(String fileName) {
+	static int[] readInts(String fileName) {
 		int[] numbers = null;
 		try {
             // Create FileInputStream and DataInputStream

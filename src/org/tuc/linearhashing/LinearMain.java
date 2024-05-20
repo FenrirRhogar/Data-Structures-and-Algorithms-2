@@ -34,7 +34,7 @@ public class LinearMain {
 		System.out.println("Searching for " + searchNo + " random keys........");
 		for (i = 1; i <= searchNo; i++){
 		   search_key = (r.nextInt() % 10000);
-		   result = Hash1.search(search_key);
+		   result = Hash1.searchKey(search_key);
 		   if (result == true)
 		     System.out.println("Search Key " + search_key + " found!!!");
 		}

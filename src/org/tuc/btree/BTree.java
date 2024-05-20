@@ -2,6 +2,8 @@ package org.tuc.btree;
 
 import java.util.Stack;
 
+//import org.tuc.interfaces.SearchInsert;
+
 public class BTree {
 
 	private int T;
@@ -337,4 +339,9 @@ public class BTree {
 			}
 		}
 	}
+
+	/*@Override
+	public boolean searchKey(int key) {
+		return Search(root, key) != null;
+	}*/
 }

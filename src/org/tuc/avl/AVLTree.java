@@ -1,6 +1,8 @@
 package org.tuc.avl;
 
-public class AVLTree
+import org.tuc.interfaces.SearchInsert;
+
+public class AVLTree implements SearchInsert
 {
 
 
@@ -189,13 +191,13 @@ public class AVLTree
         }
     }
     
-    public int search(int key)
+    /*public int search(int key)
     {
         if(findNode(Root, key) == null)
             return 0;
         else
             return 1;
-    }
+    }*/
 
     // Utility function for deletion of node
     public void delete(int key)
@@ -261,5 +263,11 @@ public class AVLTree
 
     public void removeAll() {
     	Root = null;
+    }
+
+
+    @Override
+    public boolean searchKey(int key) {
+        return findNode(Root, key) != null;
     }
 }

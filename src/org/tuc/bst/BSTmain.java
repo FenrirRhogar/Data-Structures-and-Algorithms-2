@@ -49,11 +49,11 @@ public class BSTmain
                 {
                     System.out.println("Enter the element to be searched:");
                     int temp = scan.nextInt();
-                    int c = tree.search(temp);
-                    if(c==0)
-                        System.out.println("\nKey not found");
+                    boolean found = tree.searchKey(temp);
+                    if(found == false)
+                        System.out.println("\nKey (" + temp + ") not found");
                     else
-                        System.out.println(temp + "found");
+                        System.out.println("\nKey (" + temp + ") found");
                 }
 
                 case 4:
@@ -78,5 +78,6 @@ public class BSTmain
 
             }
         }
+        scan.close();
     }
 }

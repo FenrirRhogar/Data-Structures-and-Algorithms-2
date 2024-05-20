@@ -1,7 +1,8 @@
 package org.tuc.bst;
 
+import org.tuc.interfaces.SearchInsert;
 
-public class BSTree
+public class BSTree implements SearchInsert
 {
     // NODE structure
 
@@ -96,13 +97,13 @@ public class BSTree
 
     
    
-    public int search(int key)
+    /*public int search(int key)
     {
         if(findNode(Root, key) == null)
             return 0;
         else
             return 1;
-    }
+    }*/
 
     // Utility function for deletion of node
     public void delete(int key)
@@ -164,6 +165,11 @@ public class BSTree
             PostOrder(key.right);
         System.out.print(key.value + " ");
 
+    }
+
+    @Override
+    public boolean searchKey(int key) {
+        return findNode(Root, key) != null;
     }
 
 }
