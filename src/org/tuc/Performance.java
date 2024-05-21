@@ -18,9 +18,64 @@ public class Performance {
         // Βήμα 1: Ανάγνωση κλειδιών
         List<int[]> keySets = readAllKeyFiles();
 
-        // Βήμα 2: Προετοιμασία
+        // Δημιουργία 6 στιγμιότυπων δομών δεδομένων
+        AVLTree avlTree = new AVLTree();
+        BSTree bsTree = new BSTree();
+        //BTree bTree1001 = new BTree(1001);
+        //BTree bTree600 = new BTree(600);
+        LinearHashing linearHashing40 = new LinearHashing(40, 500);
+        LinearHashing linearHashing1000 = new LinearHashing(1000, 500);
+
         for (int[] keys : keySets) {
-            runExperiment(keys);
+            // Εισαγωγή κλειδιών
+            insertKeys(keys, avlTree);
+            insertKeys(keys, bsTree);
+            //insertKeys(keys, bTree1001);
+            //insertKeys(keys, bTree600);
+            insertKeys(keys, linearHashing40);
+            insertKeys(keys, linearHashing1000);
+        }
+        
+        // Μετρήσεις εισαγωγής
+        System.out.println("Insert Time	BST     AVL    Linear40    Linear1000");
+
+        for (int[] keys : keySets) {
+            System.out.print(keys.length + "	");
+            measureInsertPerformance(keys, avlTree);
+            measureInsertPerformance(keys, bsTree);
+            //measureInsertPerformance(keys, bTree1001);
+            //measureInsertPerformance(keys, bTree600);
+            measureInsertPerformance(keys, linearHashing40);
+            measureInsertPerformance(keys, linearHashing1000);
+            System.out.println();
+        }
+        
+        System.out.println();
+        System.out.println("Search Time	BST     AVL    Linear40    Linear1000");
+        
+        for (int[] keys : keySets) {
+            System.out.print(keys.length + "	");
+            measureSearchPerformance(keys, avlTree);
+            measureSearchPerformance(keys, bsTree);
+            //measureSearchPerformance(keys, bTree1001);
+            //measureSearchPerformance(keys, bTree600);
+            measureSearchPerformance(keys, linearHashing40);
+            measureSearchPerformance(keys, linearHashing1000);
+            System.out.println();
+        }
+        
+        System.out.println();
+        System.out.println("Search Levels	BST     AVL    Linear40    Linear1000");
+        
+        for (int[] keys : keySets) {
+            System.out.print(keys.length + "	");
+            measureSearchLevelsPerformance(keys, avlTree);
+            measureSearchLevelsPerformance(keys, bsTree);
+            //measureSearchLevelsPerformance(keys, bTree1001);
+            //measureSearchLevelsPerformance(keys, bTree600);
+            measureSearchLevelsPerformance(keys, linearHashing40);
+            measureSearchLevelsPerformance(keys, linearHashing1000);
+            System.out.println();
         }
     }
 
@@ -39,53 +94,6 @@ public class Performance {
         return keySets;
     }
 
-    private static int[] readKeysFromFile(String fileName, int N) throws IOException {
-        byte[] bytes = Files.readAllBytes(Paths.get(fileName));
-        int[] keys = new int[N];
-        ByteBuffer buffer = ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN);
-
-        for (int i = 0; i < N; i++) {
-            keys[i] = buffer.getInt();
-        }
-
-        return keys;
-    }
-
-    // Βήμα 2: Προετοιμασία και Βήμα 3: Μετρήσεις
-    private static void runExperiment(int[] keys) {
-        // Δημιουργία 6 στιγμιότυπων δομών δεδομένων
-        AVLTree avlTree = new AVLTree();
-        BSTree bsTree = new BSTree();
-        //BTree bTree1001 = new BTree(1001);
-        //BTree bTree600 = new BTree(600);
-        LinearHashing linearHashing40 = new LinearHashing(40, 500);
-        LinearHashing linearHashing1000 = new LinearHashing(1000, 500);
-
-        // Εισαγωγή κλειδιών
-        insertKeys(keys, avlTree);
-        insertKeys(keys, bsTree);
-        //insertKeys(keys, bTree1001);
-        //insertKeys(keys, bTree600);
-        insertKeys(keys, linearHashing40);
-        insertKeys(keys, linearHashing1000);
-
-        // Μετρήσεις εισαγωγής
-        measureInsertPerformance(keys, avlTree);
-        measureInsertPerformance(keys, bsTree);
-        //measureInsertPerformance(keys, bTree1001);
-        //measureInsertPerformance(keys, bTree600);
-        measureInsertPerformance(keys, linearHashing40);
-        measureInsertPerformance(keys, linearHashing1000);
-
-        // Μετρήσεις αναζήτησης
-        measureSearchPerformance(keys, avlTree);
-        measureSearchPerformance(keys, bsTree);
-        //measureSearchPerformance(keys, bTree1001);
-        //measureSearchPerformance(keys, bTree600);
-        measureSearchPerformance(keys, linearHashing40);
-        measureSearchPerformance(keys, linearHashing1000);
-    }
-
     private static void insertKeys(int[] keys, SearchInsert dataStructure) {
         for (int key : keys) {
             dataStructure.insert(key);
@@ -95,7 +103,7 @@ public class Performance {
     private static void measureInsertPerformance(int[] keys, SearchInsert dataStructure) {
         long totalTime = 0;
         int K = determineK(keys.length);
-
+        
         for (int i = 0; i < K; i++) {
             int key = generateRandomKey(keys.length);
             long startTime = System.nanoTime();
@@ -105,7 +113,7 @@ public class Performance {
         }
 
         double averageTime = (double) totalTime / K;
-        System.out.printf("Average insert time for %s: %.2f ns\n", dataStructure.getClass().getSimpleName(), averageTime);
+        System.out.print("	" + averageTime);
     }
 
     private static void measureSearchPerformance(int[] keys, SearchInsert dataStructure) {
@@ -124,7 +132,29 @@ public class Performance {
 
         double averageTime = (double) totalTime / K;
         double averageLevels = (double) totalLevels / K;
+        //System.out.printf("Average search time for %s: %.2f ns, Average levels: %.2f\n", dataStructure.getClass().getSimpleName(), averageTime, averageLevels);
+        System.out.print("	" + averageTime);
+    }
+    
+    private static void measureSearchLevelsPerformance(int[] keys, SearchInsert dataStructure) {
+        long totalTime = 0;
+        int totalLevels = 0;
+        int K = determineK(keys.length);
+
+        for (int i = 0; i < K; i++) {
+            int key = generateRandomKey(keys.length);
+            long startTime = System.nanoTime();
+            boolean found = dataStructure.searchKey(key);
+            long endTime = System.nanoTime();
+            totalTime += (endTime - startTime);
+            totalLevels += getSearchLevels(dataStructure, key); // Υποθέτουμε ότι κάθε δομή έχει μια μέθοδο για τα επίπεδα
+        }
+
+        System.out.print("	" + totalLevels);
+        /*double averageTime = (double) totalTime / K;
+        double averageLevels = (double) totalLevels / K;
         System.out.printf("Average search time for %s: %.2f ns, Average levels: %.2f\n", dataStructure.getClass().getSimpleName(), averageTime, averageLevels);
+        System.out.print("	" + averageTime);*/
     }
 
     private static int determineK(int N) {
