@@ -344,4 +344,22 @@ public class BTree {
 	public boolean searchKey(int key) {
 		return Search(root, key) != null;
 	}*/
+	
+	 public int searchKeyLevels(int key) {
+	        return searchLevels(root, key);
+	    }
+
+	    private int searchLevels(Node node, int key) {
+	        int i = 0;
+	        while (i < node.n && key > node.key[i]) {
+	            i++;
+	        }
+	        if (i < node.n && key == node.key[i]) {
+	            return 1;
+	        } else if (node.leaf) {
+	            return 1;
+	        } else {
+	            return 1 + searchLevels(node.child[i], key);
+	        }
+	    }
 }

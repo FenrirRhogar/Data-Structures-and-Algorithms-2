@@ -168,8 +168,26 @@ public class BSTree implements SearchInsert
     }
 
     @Override
+    // Everything is the same as AVLTree 
     public boolean searchKey(int key) {
         return findNode(Root, key) != null;
     }
+        
+        public int searchKeyLevelsBSTree(int key) {
+            return searchLevels(Root, key);
+        }
+
+        private int searchLevels(Node node, int key) {
+            if (node == null) {
+                return 0;
+            }
+            if (key == node.value) {
+                return 1;
+            } else if (key < node.value) {
+                return 1 + searchLevels(node.left, key);
+            } else {
+                return 1 + searchLevels(node.right, key);
+            }
+        }
 
 }

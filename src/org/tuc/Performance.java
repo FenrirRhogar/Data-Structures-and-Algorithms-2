@@ -138,8 +138,16 @@ public class Performance {
     }
 
     private static int getSearchLevels(SearchInsert dataStructure, int key) {
-        // Υλοποίηση της μεθόδου που υπολογίζει τα επίπεδα για την αναζήτηση
-        // Εξαρτάται από τη συγκεκριμένη δομή δεδομένων
-        return 0; // Προσωρινή επιστροφή για τη συμπλήρωση
+    	if (dataStructure instanceof AVLTree) {
+            return ((AVLTree) dataStructure).searchKeyLevels(key);
+        } else if (dataStructure instanceof BSTree) {
+            return ((BSTree) dataStructure).searchKeyLevelsBSTree(key);
+        } else if (dataStructure instanceof BTree) {
+            return ((BTree) dataStructure).searchKeyLevels(key);
+        } else if (dataStructure instanceof LinearHashing) {
+            return ((LinearHashing) dataStructure).getSearchLevels(key);
+        }
+        return 0;
     }
+    
 }

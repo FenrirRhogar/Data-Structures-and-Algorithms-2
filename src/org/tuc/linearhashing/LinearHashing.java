@@ -150,11 +150,21 @@ public class LinearHashing implements SearchInsert {
 		   this.hashBuckets[i].printBucket(this.bucketSize);
 		}
 	}
+	
+	// New method to get search levels
+    public int getSearchLevels(int key) {
+        int bucketIndex = this.hashFunction(key);
+        int levels = 1; // Always at least one bucket is accessed
+        levels += this.hashBuckets[bucketIndex].searchKeyLevels(key);
+        return levels;
+    }
+    
 
 	@Override
 	public boolean searchKey(int key) {
 		return search(key);
 	}
+	
 
 
 

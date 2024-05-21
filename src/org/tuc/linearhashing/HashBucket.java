@@ -8,6 +8,7 @@ class HashBucket {
 	private int keysNumber;
 	private int[] keys;
 	private HashBucket overflowBucket;
+	 //   private int size;
 
 	public HashBucket(int bucketSize) { // Constructor: initialize variables
 
@@ -195,5 +196,16 @@ class HashBucket {
 			this.overflowBucket.printBucket(bucketSize);
 		}
 	}
+	
+	// New method for searching and counting levels
+    public int searchKeyLevels(int key) {
+        // Assume we return 1 if found in this bucket, or 0 if not found.
+        for (int i = 0; i < keysNumber; i++) {
+            if (keys[i] == key) {
+                return 1;
+            }
+        }
+        return 0;
+    }
 
 } // HaskBucket class
