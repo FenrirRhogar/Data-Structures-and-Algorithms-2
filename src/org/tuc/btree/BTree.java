@@ -340,10 +340,9 @@ public class BTree {
 		}
 	}
 
-	/*@Override
 	public boolean searchKey(int key) {
 		return Search(root, key) != null;
-	}*/
+	}
 	
 	 public int searchKeyLevels(int key) {
 	        return searchLevels(root, key);

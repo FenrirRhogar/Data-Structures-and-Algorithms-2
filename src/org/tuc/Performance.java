@@ -15,10 +15,9 @@ import org.tuc.linearhashing.LinearHashing;
 public class Performance {
 
     public static void main(String[] args) throws IOException {
-        // Βήμα 1: Ανάγνωση κλειδιών
         List<int[]> keySets = readAllKeyFiles();
 
-        // Δημιουργία 6 στιγμιότυπων δομών δεδομένων
+        // Data Structures Instances
         AVLTree avlTree = new AVLTree();
         BSTree bsTree = new BSTree();
         //BTree bTree1001 = new BTree(1001);
@@ -27,7 +26,7 @@ public class Performance {
         LinearHashing linearHashing1000 = new LinearHashing(1000, 500);
 
         for (int[] keys : keySets) {
-            // Εισαγωγή κλειδιών
+            // Insert keys
             insertKeys(keys, avlTree);
             insertKeys(keys, bsTree);
             //insertKeys(keys, bTree1001);
@@ -36,8 +35,8 @@ public class Performance {
             insertKeys(keys, linearHashing1000);
         }
         
-        // Μετρήσεις εισαγωγής
-        System.out.println("Insert Time	BST     AVL    Linear40    Linear1000");
+        // Insert Time Measurement
+        System.out.println("Insert Time	AVL     BST    Linear40    Linear1000");
 
         for (int[] keys : keySets) {
             System.out.print(keys.length + "	");
@@ -51,7 +50,9 @@ public class Performance {
         }
         
         System.out.println();
-        System.out.println("Search Time	BST     AVL    Linear40    Linear1000");
+        
+        // Search Time Measurement
+        System.out.println("Search Time	AVL     BST    Linear40    Linear1000");
         
         for (int[] keys : keySets) {
             System.out.print(keys.length + "	");
@@ -65,7 +66,9 @@ public class Performance {
         }
         
         System.out.println();
-        System.out.println("Search Levels	BST     AVL    Linear40    Linear1000");
+        
+        // Search Levels Measurement
+        System.out.println("Search Levels	AVL     BST    Linear40    Linear1000");
         
         for (int[] keys : keySets) {
             System.out.print(keys.length + "	");
@@ -79,7 +82,6 @@ public class Performance {
         }
     }
 
-    // Βήμα 1: Ανάγνωση κλειδιών από αρχεία
     private static List<int[]> readAllKeyFiles() throws IOException {
         List<int[]> keySets = new ArrayList<>();
         String basePath = "Keys/";
@@ -87,7 +89,6 @@ public class Performance {
 
         for (int N : Ns) {
             String fileName = "numbers-" + N + ".bin";
-            //keySets.add(readKeysFromFile(fileName, N));
             keySets.add(RandomNumbersToFiles.readInts(fileName));
         }
 
@@ -103,12 +104,13 @@ public class Performance {
     private static void measureInsertPerformance(int[] keys, SearchInsert dataStructure) {
         long totalTime = 0;
         int K = determineK(keys.length);
-        
+        int key;
+        long startTime, endTime;
         for (int i = 0; i < K; i++) {
-            int key = generateRandomKey(keys.length);
-            long startTime = System.nanoTime();
+            key = generateRandomKey(keys.length);
+            startTime = System.nanoTime();
             dataStructure.insert(key);
-            long endTime = System.nanoTime();
+            endTime = System.nanoTime();
             totalTime += (endTime - startTime);
         }
 
@@ -118,43 +120,32 @@ public class Performance {
 
     private static void measureSearchPerformance(int[] keys, SearchInsert dataStructure) {
         long totalTime = 0;
-        int totalLevels = 0;
         int K = determineK(keys.length);
-
+        int key;
+        long startTime, endTime;
+        boolean found;
         for (int i = 0; i < K; i++) {
-            int key = generateRandomKey(keys.length);
-            long startTime = System.nanoTime();
-            boolean found = dataStructure.searchKey(key);
-            long endTime = System.nanoTime();
+            key = generateRandomKey(keys.length);
+            startTime = System.nanoTime();
+            found = dataStructure.searchKey(key);
+            endTime = System.nanoTime();
             totalTime += (endTime - startTime);
-            totalLevels += getSearchLevels(dataStructure, key); // Υποθέτουμε ότι κάθε δομή έχει μια μέθοδο για τα επίπεδα
         }
 
         double averageTime = (double) totalTime / K;
-        double averageLevels = (double) totalLevels / K;
-        //System.out.printf("Average search time for %s: %.2f ns, Average levels: %.2f\n", dataStructure.getClass().getSimpleName(), averageTime, averageLevels);
         System.out.print("	" + averageTime);
     }
     
     private static void measureSearchLevelsPerformance(int[] keys, SearchInsert dataStructure) {
-        long totalTime = 0;
         int totalLevels = 0;
         int K = determineK(keys.length);
-
+        int key;
         for (int i = 0; i < K; i++) {
-            int key = generateRandomKey(keys.length);
-            long startTime = System.nanoTime();
-            boolean found = dataStructure.searchKey(key);
-            long endTime = System.nanoTime();
-            totalTime += (endTime - startTime);
-            totalLevels += getSearchLevels(dataStructure, key); // Υποθέτουμε ότι κάθε δομή έχει μια μέθοδο για τα επίπεδα
+            key = generateRandomKey(keys.length);
+            totalLevels += getSearchLevels(dataStructure, key);
         }
 
         System.out.print("	" + totalLevels);
-        /*double averageTime = (double) totalTime / K;
-        double averageLevels = (double) totalLevels / K;
-        System.out.printf("Average search time for %s: %.2f ns, Average levels: %.2f\n", dataStructure.getClass().getSimpleName(), averageTime, averageLevels);
-        System.out.print("	" + averageTime);*/
     }
 
     private static int determineK(int N) {
