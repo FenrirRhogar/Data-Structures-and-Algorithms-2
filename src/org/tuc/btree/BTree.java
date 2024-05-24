@@ -2,11 +2,14 @@ package org.tuc.btree;
 
 import java.util.Stack;
 
+import org.tuc.interfaces.SearchInsert;
+
 //import org.tuc.interfaces.SearchInsert;
 
-public class BTree {
+public class BTree implements SearchInsert{
 
 	private int T;
+	private Node root;
 
 	public BTree(int t) {
 		T = t;
@@ -14,8 +17,6 @@ public class BTree {
 		root.n = 0;
 		root.leaf = true;
 	}
-
-	private Node root;
 
 	// Search the key
 	private Node Search(Node x, int key) {
@@ -344,11 +345,11 @@ public class BTree {
 		return Search(root, key) != null;
 	}
 	
-	 public int searchKeyLevels(int key) {
+	 public double searchKeyLevels(int key) {
 	        return searchLevels(root, key);
 	    }
 
-	    private int searchLevels(Node node, int key) {
+	    private double searchLevels(Node node, int key) {
 	        int i = 0;
 	        while (i < node.n && key > node.key[i]) {
 	            i++;
