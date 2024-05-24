@@ -21,7 +21,7 @@ public class Performance {
 
 		// Data Structures Instances
 
-		System.out.println("Insert Time	AVL     BST    BTree1001	BTree600	Linear40    Linear1000");
+		System.out.println("				|AVL(insert)     	|BST(insert)    	|BTree1001(insert)	|BTree600(insert)	|Linear40(insert)       |Linear1000(insert)	|AVL(search)     	|BST(search)    	|BTree1001(search)	|BTree600(search)	|Linear40(search)       |Linear1000(search)	|AVL(levels)	     	|BST(levels)    	|BTree1001(levels)	|BTree600(levels)	|Linear40(levels)       |Linear1000(levels)	");
 		for (int[] keys : keySets) {
 			AVLTree avlTree = new AVLTree();
 			BSTree bsTree = new BSTree();
@@ -46,33 +46,26 @@ public class Performance {
 			measureInsertPerformance(keys, bTree600);
 			measureInsertPerformance(keys, linearHashing40);
 			measureInsertPerformance(keys, linearHashing1000);
-			System.out.println();
 
 
 			// Search Time Measurement
-			//System.out.println("Search Time	AVL     BST    BTree1001	BTree600	Linear40    Linear1000");
 
-			System.out.print(keys.length + "	");
 			measureSearchPerformance(keys, avlTree);
 			measureSearchPerformance(keys, bsTree);
 			measureSearchPerformance(keys, bTree1001);
 			measureSearchPerformance(keys, bTree600);
 			measureSearchPerformance(keys, linearHashing40);
 			measureSearchPerformance(keys, linearHashing1000);
-			System.out.println();
 
 
 			// Search Levels Measurement
-			//System.out.println("Search Levels	AVL     BST    BTree1001	BTree600	Linear40    Linear1000");
 
-			System.out.print(keys.length + "	");
 			measureSearchLevelsPerformance(keys, avlTree);
 			measureSearchLevelsPerformance(keys, bsTree);
 			measureSearchLevelsPerformance(keys, bTree1001);
 			measureSearchLevelsPerformance(keys, bTree600);
 			measureSearchLevelsPerformance(keys, linearHashing40);
 			measureSearchLevelsPerformance(keys, linearHashing1000);
-			System.out.println();
 			System.out.println();
 		}
 		long end = System.nanoTime();
@@ -112,8 +105,8 @@ public class Performance {
 			totalTime += (endTime - startTime);
 		}
 
-		double averageTime = (double) totalTime / K;
-		System.out.print("	|" + averageTime);
+		double averageTime = (double) totalTime / (double) K;
+		System.out.print("			|" + averageTime);
 	}
 
 	private static void measureSearchPerformance(int[] keys, SearchInsert dataStructure) {
@@ -126,12 +119,12 @@ public class Performance {
 			key = generateRandomKey(keys.length);
 			startTime = System.nanoTime();
 			found = dataStructure.searchKey(key);
-			// endTime = System.nanoTime();
-			totalTime += (System.nanoTime() - startTime);
+			endTime = System.nanoTime();
+			totalTime += (endTime - startTime);
 		}
 
-		double averageTime = (double) totalTime / K;
-		System.out.print("	|" + averageTime);
+		double averageTime = (double) totalTime / (double) K;
+		System.out.print("			|" + averageTime);
 	}
 
 	private static void measureSearchLevelsPerformance(int[] keys, SearchInsert dataStructure) {
@@ -142,8 +135,8 @@ public class Performance {
 			key = generateRandomKey(keys.length);
 			totalLevels += getSearchLevels(dataStructure, key);
 		}
-		double averageLevels = totalLevels / K;
-		System.out.print("	|" + averageLevels);
+		double averageLevels = (double) totalLevels / (double) K;
+		System.out.print("			|" + averageLevels);
 	}
 
 	private static int determineK(int N) {
