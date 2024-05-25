@@ -1,6 +1,7 @@
 package org.tuc.avl;
 
 import org.tuc.interfaces.SearchInsert;
+import org.tuc.MultiCounter;
 
 public class AVLTree implements SearchInsert
 {
@@ -168,7 +169,7 @@ public class AVLTree implements SearchInsert
     {
         if (root == null || key==root.value)
             return root;
-
+        MultiCounter.increaseCounter(1);
         if (key < root.value)
             return findNode(root.left, key);
 

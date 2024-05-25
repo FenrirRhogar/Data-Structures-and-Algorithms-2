@@ -198,7 +198,7 @@ class HashBucket {
 	}
 	
 	// New method for searching and counting levels
-    public int searchKeyLevels(int key) {
+    /*public int searchKeyLevels(int key) {
         // Assume we return 1 if found in this bucket, or 0 if not found.
         for (int i = 0; i < keysNumber; i++) {
             if (keys[i] == key) {
@@ -206,6 +206,6 @@ class HashBucket {
             }
         }
         return 0;
-    }
+    }*/
 
 } // HaskBucket class

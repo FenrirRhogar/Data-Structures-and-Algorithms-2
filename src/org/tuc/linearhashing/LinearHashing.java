@@ -1,5 +1,6 @@
 package org.tuc.linearhashing;
 
+import org.tuc.MultiCounter;
 import org.tuc.interfaces.SearchInsert;
 
 public class LinearHashing implements SearchInsert {
@@ -137,7 +138,7 @@ public class LinearHashing implements SearchInsert {
 	}
 
 	public boolean search(int key) {		// Search for a key.
-
+		MultiCounter.increaseCounter(4);
 		return this.hashBuckets[this.hashFunction(key)].searchKey(key, this);
 	}
 
@@ -152,12 +153,12 @@ public class LinearHashing implements SearchInsert {
 	}
 	
 	// New method to get search levels
-    public int getSearchLevels(int key) {
+    /*public int getSearchLevels(int key) {
         int bucketIndex = this.hashFunction(key);
         int levels = 1; // Always at least one bucket is accessed
         levels += this.hashBuckets[bucketIndex].searchKeyLevels(key);
         return levels;
-    }
+    }*/
     
 
 	@Override

@@ -1,5 +1,6 @@
 package org.tuc.bst;
 
+import org.tuc.MultiCounter;
 import org.tuc.interfaces.SearchInsert;
 
 public class BSTree implements SearchInsert
@@ -73,7 +74,7 @@ public class BSTree implements SearchInsert
     {
         if (root == null || key==root.value)
             return root;
-
+        MultiCounter.increaseCounter(2);
         if (key < root.value)
             return findNode(root.left, key);
 

@@ -2,6 +2,7 @@ package org.tuc.btree;
 
 import java.util.Stack;
 
+import org.tuc.MultiCounter;
 import org.tuc.interfaces.SearchInsert;
 
 //import org.tuc.interfaces.SearchInsert;
@@ -23,6 +24,7 @@ public class BTree implements SearchInsert{
 		int i = 0;
 		if (x == null)
 			return x;
+		MultiCounter.increaseCounter(3);
 		for (i = 0; i < x.n; i++) {
 			if (key < x.key[i]) {
 				break;
