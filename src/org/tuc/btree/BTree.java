@@ -22,9 +22,9 @@ public class BTree implements SearchInsert{
 	// Search the key
 	private Node Search(Node x, int key) {
 		int i = 0;
+		MultiCounter.increaseCounter(3);
 		if (x == null)
 			return x;
-		MultiCounter.increaseCounter(3);
 		for (i = 0; i < x.n; i++) {
 			if (key < x.key[i]) {
 				break;
@@ -344,24 +344,6 @@ public class BTree implements SearchInsert{
 	}
 
 	public boolean searchKey(int key) {
-		return Search(root, key) != null;
+		return Contain(key);
 	}
-	
-	 public double searchKeyLevels(int key) {
-	        return searchLevels(root, key);
-	    }
-
-	    private double searchLevels(Node node, int key) {
-	        int i = 0;
-	        while (i < node.n && key > node.key[i]) {
-	            i++;
-	        }
-	        if (i < node.n && key == node.key[i]) {
-	            return 1;
-	        } else if (node.leaf) {
-	            return 1;
-	        } else {
-	            return 1 + searchLevels(node.child[i], key);
-	        }
-	    }
 }

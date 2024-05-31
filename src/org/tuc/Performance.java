@@ -21,18 +21,18 @@ public class Performance {
 
 		// Data Structures Instances
 
-		System.out.println("				|AVL(insert)     	|BST(insert)    	|BTree1001(insert)	|BTree600(insert)	|Linear40(insert)       |Linear1000(insert)	|AVL(search)     	|BST(search)    	|BTree1001(search)	|BTree600(search)	|Linear40(search)       |Linear1000(search)	|AVL(levels)	     	|BST(levels)    	|BTree1001(levels)	|BTree600(levels)	|Linear40(levels)       |Linear1000(levels)	");
+		System.out.println("				|AVL(insert)     	|BST(insert)    	|BTree100(insert)	|BTree600(insert)	|Linear40(insert)       |Linear1000(insert)	|AVL(search)     	|BST(search)    	|BTree100(search)	|BTree600(search)	|Linear40(search)       |Linear1000(search)	|AVL(levels)	     	|BST(levels)    	|BTree100(levels)	|BTree600(levels)	|Linear40(levels)       |Linear1000(levels)	");
 		for (int[] keys : keySets) {
 			AVLTree avlTree = new AVLTree();
 			BSTree bsTree = new BSTree();
-			BTree bTree1001 = new BTree(500);
+			BTree bTree100 = new BTree(50);
 			BTree bTree600 = new BTree(300);
 			LinearHashing linearHashing40 = new LinearHashing(40, 500);
 			LinearHashing linearHashing1000 = new LinearHashing(1000, 500);
 			// Insert keys
 			insertKeys(keys, avlTree);
 			insertKeys(keys, bsTree);
-			insertKeys(keys, bTree1001);
+			insertKeys(keys, bTree100);
 			insertKeys(keys, bTree600);
 			insertKeys(keys, linearHashing40);
 			insertKeys(keys, linearHashing1000);
@@ -41,7 +41,7 @@ public class Performance {
 			System.out.print(keys.length + "	");
 			measureInsertPerformance(keys, avlTree);
 			measureInsertPerformance(keys, bsTree);
-			measureInsertPerformance(keys, bTree1001);
+			measureInsertPerformance(keys, bTree100);
 			measureInsertPerformance(keys, bTree600);
 			measureInsertPerformance(keys, linearHashing40);
 			measureInsertPerformance(keys, linearHashing1000);
@@ -50,7 +50,7 @@ public class Performance {
 			// Search Time Measurement
 			double avl = measureSearchPerformance(keys, avlTree);
 			double bst = measureSearchPerformance(keys, bsTree);
-			double bt1001 = measureSearchPerformance(keys, bTree1001);
+			double bt1001 = measureSearchPerformance(keys, bTree100);
 			double bt600 = measureSearchPerformance(keys, bTree600);
 			double lh40 = measureSearchPerformance(keys, linearHashing40);
 			double lh1000 = measureSearchPerformance(keys, linearHashing1000);
@@ -127,7 +127,6 @@ public class Performance {
 			found = dataStructure.searchKey(key);
 			endTime = System.nanoTime();
 			totalTime += (endTime - startTime);
-			//totalLevels += getSearchLevels(dataStructure, key);
 		}
 		if (dataStructure.getClass().getSimpleName().contentEquals("AVLTree")) {
 			totalLevels = MultiCounter.getCount(1);

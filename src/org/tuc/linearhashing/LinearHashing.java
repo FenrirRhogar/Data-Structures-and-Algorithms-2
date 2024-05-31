@@ -138,7 +138,6 @@ public class LinearHashing implements SearchInsert {
 	}
 
 	public boolean search(int key) {		// Search for a key.
-		MultiCounter.increaseCounter(4);
 		return this.hashBuckets[this.hashFunction(key)].searchKey(key, this);
 	}
 

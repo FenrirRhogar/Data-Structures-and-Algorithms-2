@@ -2,6 +2,8 @@ package org.tuc.linearhashing;
 
 import java.io.*;
 
+import org.tuc.MultiCounter;
+
 
 class HashBucket {
 
@@ -115,7 +117,7 @@ class HashBucket {
 	public boolean searchKey(int key, LinearHashing lh) {
 		int i;
 		int bucketSize = lh.getBucketSize();
-
+		MultiCounter.increaseCounter(4);
 		for (i = 0; (i < this.keysNumber) && (i < bucketSize); i++) {
 
 			if (this.keys[i] == key) { // key found
