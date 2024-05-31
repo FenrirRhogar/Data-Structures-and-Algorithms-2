@@ -264,40 +264,10 @@ public class AVLTree implements SearchInsert
     public void removeAll() {
     	Root = null;
     }
-
-
-    @Override
     
     //Method to search a key in AVL tree and return true if found
     public boolean searchKey(int key) {
     	//Call the helper method findNode with the root of the tree and the key to search
         return findNode(Root, key) != null;
-    }
-    
-    //Method to find the number of levels accessed during the search for a key
-    public int searchKeyLevels(int key) {
-    	//Call the helper method searchLevels with the root of the tree and the key to search
-    	 return searchLevels(Root, key);
-    }
-    
-    //Helper method to find the number of levels accessed during the search o a key
-    public int searchLevels(Node node, int key ) {
-    	//If node = null key is not found , return 0
-    	 if (node == null) {
-             return 0;
-         }
-    	 //If key equal node's value, key is found at the current level , return 1
-         if (key == node.value) {
-             return 1;
-         }
-         //If key is lower that the node's value, search in the left subtree and add 1 to the current level
-         else if (key < node.value) {
-             return 1 + searchLevels(node.left, key);
-         }
-         //If we come here it means that the key is greater than the node's value, so we search in the right
-         //subtree and add 1 to the current level
-         else {
-             return 1 + searchLevels(node.right, key);
-         }
     }
 }

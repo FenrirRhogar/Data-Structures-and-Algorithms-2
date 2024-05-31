@@ -47,7 +47,7 @@ public class Performance {
 			measureInsertPerformance(keys, linearHashing1000);
 
 
-			// Search Time Measurement
+			// Search Time and Levels Measurement
 			double avl = measureSearchPerformance(keys, avlTree);
 			double bst = measureSearchPerformance(keys, bsTree);
 			double bt1001 = measureSearchPerformance(keys, bTree100);
@@ -61,13 +61,6 @@ public class Performance {
 			System.out.print("			|" + bt600);
 			System.out.print("			|" + lh40);
 			System.out.print("			|" + lh1000);
-			// Search Levels Measurement
-			/*measureSearchLevelsPerformance(keys, avlTree);
-			measureSearchLevelsPerformance(keys, bsTree);
-			measureSearchLevelsPerformance(keys, bTree1001);
-			measureSearchLevelsPerformance(keys, bTree600);
-			measureSearchLevelsPerformance(keys, linearHashing40);
-			measureSearchLevelsPerformance(keys, linearHashing1000);*/
 			System.out.println();
 		}
 		long end = System.nanoTime();
@@ -141,21 +134,8 @@ public class Performance {
 		double averageTime = (double) totalTime / (double) K;
 		System.out.print("			|" + averageTime);
 		double averageLevels = (double) totalLevels / (double) K;
-		//System.out.print("			|" + averageLevels);
 		return averageLevels;
 	}
-
-	/*private static void measureSearchLevelsPerformance(int[] keys, SearchInsert dataStructure) {
-		int totalLevels = 0;
-		int K = determineK(keys.length);
-		int key;
-		for (int i = 0; i < K; i++) {
-			key = generateRandomKey(keys.length);
-			totalLevels += getSearchLevels(dataStructure, key);
-		}
-		double averageLevels = (double) totalLevels / (double) K;
-		System.out.print("			|" + averageLevels);
-	}*/
 
 	private static int determineK(int N) {
 		if (N < 201)
@@ -168,19 +148,5 @@ public class Performance {
 	private static int generateRandomKey(int N) {
 		return new Random().nextInt(3 * N) + 1;
 	}
-
-	/*private static double getSearchLevels(SearchInsert dataStructure, int key) {
-		if (dataStructure instanceof AVLTree) {
-			//return ((AVLTree) dataStructure).searchKeyLevels(key);
-			return MultiCounter.getCount(1);
-		} else if (dataStructure instanceof BSTree) {
-			return ((BSTree) dataStructure).searchKeyLevelsBSTree(key);
-		} else if (dataStructure instanceof BTree) {
-			return ((BTree) dataStructure).searchKeyLevels(key);
-		} else if (dataStructure instanceof LinearHashing) {
-			return ((LinearHashing) dataStructure).getSearchLevels(key);
-		}
-		return 0;
-	}*/
 
 }
