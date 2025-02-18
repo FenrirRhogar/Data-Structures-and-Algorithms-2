@@ -50,14 +50,14 @@ public class Performance {
 			// Search Time and Levels Measurement
 			double avl = measureSearchPerformance(keys, avlTree);
 			double bst = measureSearchPerformance(keys, bsTree);
-			double bt1001 = measureSearchPerformance(keys, bTree100);
+			double bt100 = measureSearchPerformance(keys, bTree100);
 			double bt600 = measureSearchPerformance(keys, bTree600);
 			double lh40 = measureSearchPerformance(keys, linearHashing40);
 			double lh1000 = measureSearchPerformance(keys, linearHashing1000);
 
 			System.out.print("			|" + avl);
 			System.out.print("			|" + bst);
-			System.out.print("			|" + bt1001);
+			System.out.print("			|" + bt100);
 			System.out.print("			|" + bt600);
 			System.out.print("			|" + lh40);
 			System.out.print("			|" + lh1000);
